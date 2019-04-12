@@ -1,3 +1,4 @@
+<?php include_once('database.php');?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -26,15 +27,54 @@
     </style>
   </head>
   <body>
+    <script type = "text/javascript" src = "https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
     <div class="container">
-      <form class="form-signin" role="form" action="index.html">
-        <h3 class="form-signin-heading">Please sign in</h3>
+      <form class="form-signin" role="form"  method="post" action="">
+        <h3 class="form-signin-heading">Registeration Form</h3>
         <div class="form-group">
           <div class="input-group">
             <div class="input-group-addon">
-              <i class="glyphicon glyphicon-user"></i>
+              <i class="glyphicon glyphicon-asterisk "></i>
             </div>
-            <input type="text" class="form-control" name="username" id="username" placeholder="Username" autocomplete="off" />
+            <input type="text" class="form-control" name="firstName" id="firstName" placeholder="FirstName" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class=" glyphicon glyphicon-asterisk "></i>
+            </div>
+            <input type="text" class="form-control" name="lastName" id="lastName" placeholder="LastName" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class=" glyphicon glyphicon-user "></i>
+            </div>
+            <input type="text" class="form-control" name="userName" id="userName" placeholder="UserName" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class=" glyphicon glyphicon-envelope "></i>
+            </div>
+            <input type="text" class="form-control" name="email" id="email" placeholder="Email" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class=" glyphicon glyphicon-phone "></i>
+            </div>
+            <input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="PhoneNumber" autocomplete="off" />
           </div>
         </div>
 
@@ -47,10 +87,21 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon">
+              <i class=" glyphicon glyphicon-lock "></i>
+            </div>
+            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="ConfirmPassword" autocomplete="off" />
+          </div>
+        </div>
+
+
+
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> &nbsp Remember me
         </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" name="signup" type="submit" id="signup">Sign up</button>
       </form>
 
     </div>
@@ -65,5 +116,70 @@
         </div>
       </div>
     </div>
+<!--Jquery validation for every field
+-->
+<script type="text/javascript">
+
+  var result = $( document ).ready(function(){
+var datavalid='true';
+    $('#signup').on('click',function(e) {
+      var validated=validate();
+ if (!validated) {
+  e.preventDefault();
+ }
+});
+    
+ function validate(){
+
+
+         var firstName = $('#firstName').val();
+        var lastName = $('#lastName').val();
+        var userName = $('#userName').val();
+        var email = $('#email').val();
+        var phoneNumber = $('#phoneNumber').val();
+        var password = $('#password').val();
+        var confirmPassword = $('#confirmPassword').val();
+        
+
+ 
+    if ( firstName.length < 1 || (! ( firstName.match ( /^[A-Za-z0-9]*$/ ) ) ) ) {
+      $('#firstName').after('  First name invalid');
+      datavalid=false;
+    }
+    
+    if ( lastName.length < 1 || ( ! ( lastName.match ( /^[A-Za-z0-9]*$/ ) ) ) ) {
+      $('#lastName').after('  Last name invalid');
+      datavalid=false;
+    }
+
+    if ( userName.length < 1 || (! ( userName.match ( /^[A-Za-z0-9]*$/ ) ) ) ) {
+      $('#userName').after('  User name invalid');
+      datavalid=false;
+    }
+    if ( email.length < 1 || (! ( email.match (/^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/) ))){
+      $('#email' ).after('  E-mail invalid');
+      datavalid=false;
+    } 
+///^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+.[a-zA-z0-9]{2,4}$/
+    if( phoneNumber.length != 10 || (! phoneNumber.match(/^[0-9]{10}$/) ) ){
+      $('#phoneNumber').after('  Phone Number invalid ');
+      datavalid=false;
+
+    }
+   
+    if ((password.length < 8 ) || (! password.match(/([a-zA-Z0-9]+[!,@,#,$,%,^,&,*])/) ))  {
+      $('#password' ).after('  Password invalid');
+      datavalid=false;
+    }
+    if(confirmPassword !== password || confirmPassword.length<1){
+      $('#confirmPassword').after('  Password do not match');
+      datavalid=false;
+    }
+
+return datavalid;
+   
+
+}
+</script>
   </body>
 </html>
